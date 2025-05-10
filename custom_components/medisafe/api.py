@@ -37,7 +37,7 @@ class MedisafeApiClient:
         auth = await self.api_wrapper(
             "post",
             "https://api.medisafeproject.com/api/v3/auth/login",
-            {"username": self._username, "password": self._password},
+            {"account": self._username, "password": self._password},
         )
         if "error" in auth:
             print(auth)
@@ -56,8 +56,8 @@ class MedisafeApiClient:
         end = int((datetime.today() + timedelta(days=1)).timestamp() * 1000)
         return await self.api_wrapper(
             "get",
-            f"https://api.medisafeproject.com/api/v3/user/{auth['id']}/sync?from={start}",
-            headers={"Authorization": "Bearer " + auth["token"]},
+            f"https://api.medisafeproject.com/api/v3/user/{auth['user']['id']}/sync?from={start}",
+            headers={"Authorization": "Bearer " + auth["token"]['accessToken']},
         )
 
     async def api_wrapper(
