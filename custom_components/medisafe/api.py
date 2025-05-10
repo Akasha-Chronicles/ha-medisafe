@@ -36,7 +36,7 @@ class MedisafeApiClient:
     async def async_get_data(self) -> dict:
         auth = await self.api_wrapper(
             "post",
-            "https://api.medisafeproject.com/api/v3/auth",
+            "https://api.medisafeproject.com/api/v3/auth/login",
             {"username": self._username, "password": self._password},
         )
         if "error" in auth:
