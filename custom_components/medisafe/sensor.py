@@ -35,18 +35,18 @@ async def async_setup_entry(hass, entry, async_add_devices):
         for ent in coordinator.data["groups"]:
             if "refill" not in ent or "currentNumberOfPills" not in ent["refill"]:
                 _LOGGER.debug(
-                    f"Missing currentNumberOfPills: {ent['medicine']['name']} with UUID {ent['uuid']}"
+                    f"Missing currentNumberOfPills: {ent['medicine']['commercialName']} with ID {ent['id']}"
                 )
             elif ent["status"] != "ACTIVE":
                 _LOGGER.debug(
-                    f"Inactive medication: {ent['medicine']['name']} with UUID {ent['uuid']}"
+                    f"Inactive medication: {ent['medicine']['commercialName']} with ID {ent['id']}"
                 )
             else:
                 _LOGGER.debug(
-                    f"Adding: {ent['medicine']['name']} with UUID {ent['uuid']}"
+                    f"Adding: {ent['medicine']['commercialName']} with ID {ent['id']}"
                 )
                 entities.append(
-                    MedisafeMedicationEntity(coordinator, entry, ent["uuid"])
+                    MedisafeMedicationEntity(coordinator, entry, ent["id"])
                 )
 
     entities.append(MedisafeStatusCountEntity(coordinator, entry, "taken"))
@@ -114,7 +114,7 @@ class MedisafeMedicationEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def name(self):
-        return self.coordinator.get_medication(self.uuid)["name"]
+        return self.coordinator.get_medication(self.uuid)["commercialName"]
 
     @property
     def state(self):

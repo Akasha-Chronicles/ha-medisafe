@@ -56,7 +56,7 @@ class MedisafeApiClient:
         end = int((datetime.today() + timedelta(days=1)).timestamp() * 1000)
         return await self.api_wrapper(
             "get",
-            f"https://api.medisafeproject.com/api/v3/user/{auth['user']['id']}/sync?from={start}",
+            f"https://api.medisafeproject.com/api/v3/user/{auth['user']['id']}/sync?from=0&fromUpdate=0&includeDeleted=true&includeItems=true&includeClient=true&sync=true&send_pages_sev=false",
             headers={"Authorization": "Bearer " + auth["token"]['accessToken']},
         )
 

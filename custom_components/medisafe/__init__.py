@@ -89,7 +89,7 @@ class MedisafeDataUpdateCoordinator(DataUpdateCoordinator):
             return None
         else:
             for medication in self.data["medications"]:
-                if medication["uuid"] == uuid:
+                if medication["id"] == uuid:
                     return medication
 
         _LOGGER.error(f"Medication not found for UUID: {uuid}")

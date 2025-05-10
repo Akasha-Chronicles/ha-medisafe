@@ -57,8 +57,8 @@ class MedisafeTodoListEntity(CoordinatorEntity, TodoListEntity):
                         <= group["refill"]["refillReminder"]["pills"]
                     ):
                         item = TodoItem()
-                        item.summary = group["medicine"]["name"]
-                        item.uid = group["uuid"]
+                        item.summary = group["medicine"]["commercialName"]
+                        item.uid = group["id"]
                         item.status = TodoItemStatus.NEEDS_ACTION
                         if group["refill"]["currentNumberOfPills"].is_integer():
                             item.description = f"{int(group['refill']['currentNumberOfPills'])} pills remaining"
